@@ -1,0 +1,32 @@
+/* Fuentes de google fonts de Inclusive Sans e Istok Web */
+@import url('https://fonts.googleapis.com/css2?family=Inclusive+Sans&family=Istok+Web&display=swap');
+
+/* Custom properties globales */
+:root { 
+    /* colores de marca */
+    --pri: #fff;
+    --sec: #00A0DC;
+    --alt: #FBC916;
+    --fondo: #EFFAFD;
+    --paneles-alt: #F5F5F5;
+
+    /* botones */
+    --btn-pri: #00A0DC;
+    --btn-sec: #FBC916;
+    --btn-alt: #D32C2C;
+
+    /* textos y titulos */
+    --texto: #000;
+    --titulo: 'Inclusive Sans', sans-serif;
+    --cuerpo: 'Istok Web', sans-serif;
+
+    /* otros */
+    --sombra: 0 0 20px rgba(0, 0, 0, 0.2)
+    --sombra-oscura: 0 0 20px rgba(0, 0, 0, 0.4)
+}
+
+/* Diseño de menor pixeles (pantallas pequeñas) */
+@media (max-width: 700px) {
+
+}
+
