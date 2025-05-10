@@ -71,7 +71,10 @@ services:
       - "80:80"
     depends_on:
       - db
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
 
 # Persistencia de los datos
 volumes:
   postgres_data: # Al parecer aunque esto en teoría parezca "vacío" cumple una función para que los datos permanezcan
+  pgadmin_data:
