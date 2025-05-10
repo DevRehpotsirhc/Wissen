@@ -1,0 +1,77 @@
+# DECLARACION DE LOS CONTENEDORES
+services:
+
+  # Dependencias de React
+  # frontend:
+  #   build:
+  #     context: ./Views
+  #   volumes:
+  #     - ./Views:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - "3000:3000"
+  #   stdin_open: true
+  #   tty: true
+  #   # Variables de entorno necesarias para fase de desarrollo
+  #   environment:
+  #     - CHOKIDAR_USEPOLLING=true
+
+  # Dependecias de Django
+  backend:
+    build:
+      context: ./Models
+    volumes: 
+      - ./Models:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    # Variables de entorno necesarias para settings.py
+    environment:
+      DB_NAME: proyecto
+      DB_USER: postgres
+      DB_PASSWORD: 28362711
+      DB_HOST: db
+      DB_PORT: 5432
+  
+  # Dependencias de la base de datos
+  db:
+    image: postgres:17
+    restart: always
+    ports:
+      - "5432:5432"
+    shm_size: 128mb
+
+    #                           ** IMPORTANTE ** 
+
+
+
+    # CON ESTO SE ACCEDE A LA BASE DE DATOS 
+    environment:
+      POSTGRES_DB: proyecto
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 28362711
+
+
+
+    #                           ** IMPORTANTE ** 
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  # Gestor de pgAdmin4
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    # Datos para ingresar al gestor
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+
+# Persistencia de los datos
+volumes:
+  postgres_data: # Al parecer aunque esto en teoría parezca "vacío" cumple una función para que los datos permanezcan
