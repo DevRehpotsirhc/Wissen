@@ -1,1 +1,7 @@
-Aquí van las vistas
+Necesitamos tener las dependencias "package*.json" en esta carpeta para que el dockerfile sirva,
+según entiendo eso se refiere al entorno de trabajo que tengan para react. Hasta que este no
+radique en el repositorio remoto, la carpeta ./Views se encuentra desacoplada del resto del
+proyecto en docker
+
+Pueden seguir trabajando pero no podrán usar docker para el front y posiblemente tengamos
+problemas de versionamiento a futuro

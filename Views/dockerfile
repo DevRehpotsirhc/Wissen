@@ -1,0 +1,12 @@
+# Imagen de node necesaria para React
+FROM node:18
+# Espacio de trabajo de docker    NOTA: se suele llamar /app por conveniencia, no hace referencia a los documentos locales
+WORKDIR /app
+# Las depencias de package deben encontrarse en la carpeta de proyecto, específicamente en el ./Views
+COPY package*.json ./
+# Instalación de las dependencias
+RUN npm install
+# Copia todo el contenido local al espacio de trabajo de docker
+COPY . .
+# Comandas que se ejecutan al abrir el contenedor
+CMD ["npm", "start"]
