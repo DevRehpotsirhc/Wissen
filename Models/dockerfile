@@ -1,0 +1,19 @@
+# ARCHIVO PARA CREAR LA IMAGEN DE DOCKER
+
+# Imagen
+FROM python:3.13
+
+# Espacio de trabajo
+WORKDIR /app
+
+# Archivos del proyecto que copiará
+COPY requirements.txt .
+
+# Instalación de dependencias
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Puerto de docker expuesto
+EXPOSE 8000
+
+# Comandos del servidor
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
