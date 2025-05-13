@@ -1,27 +1,12 @@
 # DECLARACION DE LOS CONTENEDORES
 services:
 
-  # Dependencias de React
-  # frontend:
-  #   build:
-  #     context: ./Views
-  #   volumes:
-  #     - ./Views:/app
-  #     - /app/node_modules
-  #   ports:
-  #     - "3000:3000"
-  #   stdin_open: true
-  #   tty: true
-  #   # Variables de entorno necesarias para fase de desarrollo
-  #   environment:
-  #     - CHOKIDAR_USEPOLLING=true
-
   # Dependecias de Django
   backend:
     build:
-      context: ./Models
+      context: ./Proyecto
     volumes: 
-      - ./Models:/app
+      - ./Proyecto:/app
     ports:
       - "8000:8000"
     depends_on:
@@ -76,5 +61,5 @@ services:
 
 # Persistencia de los datos
 volumes:
-  postgres_data: # Al parecer aunque esto en teoría parezca "vacío" cumple una función para que los datos permanezcan
+  postgres_data: # Al parecer aunque esto en teoría parezca "vacío" cumple una función para que los datos permanezcan en volumes de Docker
   pgadmin_data:
