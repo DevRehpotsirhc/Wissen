@@ -17,8 +17,8 @@ class TipoIden(models.Model):
 # Modelo de Roles (Administrador, Docente, Estudiante)
 class Rol(models.Model):
     id_rol = models.AutoField(primary_key=True)
-    rol = models.CharField(max_length=50)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    rol = models.CharField(max_length=10)
+    fecha_creacion = models.DateTimeField(auto_now_add= True)
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
@@ -29,8 +29,8 @@ class Rol(models.Model):
 # Modelo de Estado en el sistema (Activo, Inactivo, En revisión)
 class Estado(models.Model):
     id_estado = models.AutoField(primary_key=True)
-    estado = models.CharField(max_length=50)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    estado = models.CharField(max_length=10)
+    fecha_creacion = models.DateTimeField(auto_now_add= True)
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
@@ -40,21 +40,21 @@ class Estado(models.Model):
 
 # Modelo que almacena todos los datos de una persona independientemente su rol
 class Persona(models.Model):
-    id_persona = models.AutoField(primary_key=True)
+    id_pesona = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     apellidos = models.CharField(max_length=50)
-    id_tipo_iden = models.OneToOneField(TipoIden, on_delete=models.CASCADE)
+    # Evita que se elimine un tipo de identificacion si esta relacionado con alguna persona.
+    id_tipo_iden = models.OneToOneField('tipoIden', on_delete=models.CASCADE)
     num_iden = models.CharField(max_length=12, unique=True)
-    '''                     IMPORTANTE
-    
-    Hay que probar lo del related_name
-    
-    '''
-    id_rol = models.ManyToManyField(Rol, related_name="persona_rol")
-    foto = models.CharField(max_length=250)
-    correo = models.EmailField(max_length=254)     # Válida el formato del correo
-    tel = models.CharField(max_length=50)
-    id_estado = models.OneToOneField(Estado, on_delete=models.CASCADE)
+    # Evita que se elimine un rol que se esté en uso
+    id_rol = models.ManyToManyField('Rol', related_name="persona_rol")
+    foto = models.CharField(max_length=250, blank=True, null=True)
+    # blank = True: Permite que el campo este vacio en formulario
+    # Permite que se guarde como null en la base de datos
+    correo = models.EmailField(max_length=254)
+    tel = models.CharField(max_length=15)
+    id_estado = models.OneToOneField('Estado', on_delete=models.CASCADE)
+    # Automatico cuando se crea el registro
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     
     # Estructura de escritura que se mostrará al llamar al modelo
@@ -82,8 +82,8 @@ class Usuario(models.Model):
 # Modelo de cargos administrativos (rector, subdirector, director, etc)
 class Cargo(models.Model):
     id_cargo = models.AutoField(primary_key=True)
-    cargo = models.CharField(max_length=50)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    cargo = models.CharField(max_length=30)
+    fecha_creacion = models.DateTimeField(auto_now_add= True)
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
@@ -94,7 +94,7 @@ class Cargo(models.Model):
 # Modelo de administrador y superuser del sistema
 class Administrador(models.Model):
     id_administrador = models.AutoField(primary_key=True)
-    id_usuario = models.ManyToManyField(Usuario, related_name="administrador")
+    id_usuario = models.ManyToManyField(Usuario, related_name="administrador_usuario")
     id_cargo = models.ForeignKey(Cargo, on_delete=models.CASCADE)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     
@@ -119,8 +119,8 @@ class Materia(models.Model):
 # Modelo de materias (matemáticas, física, química, etc)
 class Jornada(models.Model):
     id_jornada = models.AutoField(primary_key=True)
-    jornada = models.CharField(max_length=50)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    jornada = models.CharField(max_length=20)
+    fecha_creacion = models.DateTimeField(auto_now_add= True)
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
