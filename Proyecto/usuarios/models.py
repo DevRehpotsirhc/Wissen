@@ -2,6 +2,8 @@ from django.db import models
 
 
 
+
+
 # Modelo de Tipo de Identificación
 class TipoIden(models.Model):
     id_tipo_iden = models.AutoField(primary_key=True)
@@ -40,20 +42,20 @@ class Estado(models.Model):
 
 # Modelo que almacena todos los datos de una persona independientemente su rol
 class Persona(models.Model):
-    id_pesona = models.AutoField(primary_key=True)
+    id_persona = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     apellidos = models.CharField(max_length=50)
     # Evita que se elimine un tipo de identificacion si esta relacionado con alguna persona.
-    id_tipo_iden = models.OneToOneField('tipoIden', on_delete=models.CASCADE)
+    id_tipo_iden = models.ForeignKey(TipoIden, on_delete=models.CASCADE)
     num_iden = models.CharField(max_length=12, unique=True)
     # Evita que se elimine un rol que se esté en uso
-    id_rol = models.ManyToManyField('Rol', related_name="persona_rol")
+    id_rol = models.ManyToManyField(Rol, related_name="persona_rol")
     foto = models.CharField(max_length=250, blank=True, null=True)
     # blank = True: Permite que el campo este vacio en formulario
     # Permite que se guarde como null en la base de datos
     correo = models.EmailField(max_length=254)
     tel = models.CharField(max_length=15)
-    id_estado = models.OneToOneField('Estado', on_delete=models.CASCADE)
+    id_estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
     # Automatico cuando se crea el registro
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     
@@ -75,7 +77,7 @@ class Usuario(models.Model):
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Usuario: {self.usuario}\nClave: {self.clave}\nPersona: {self.id_persona}\nFecha de Creación: {self.fecha_creacion.strftime("%d/%m/%Y")}"
+        return f"Usuario: {self.usuario}\nClave: {self.clave}\nPersona: {self.id_persona}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
 
 
 
@@ -87,20 +89,20 @@ class Cargo(models.Model):
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Cargo: {self.cargo}\nFecha de Creación: {self.fecha_creacion.strftime("%d/%m/%Y")}"
+        return f"Cargo: {self.cargo}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
     
 
 
 # Modelo de administrador y superuser del sistema
 class Administrador(models.Model):
     id_administrador = models.AutoField(primary_key=True)
-    id_usuario = models.ManyToManyField(Usuario, related_name="administrador_usuario")
+    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     id_cargo = models.ForeignKey(Cargo, on_delete=models.CASCADE)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Usuario: {self.id_usuario}\nCargo: {self.id_cargo}\nFecha de Creación: {self.fecha_creacion.strftime("%d/%m/%Y")}"
+        return f"Usuario: {self.id_usuario}\nCargo: {self.id_cargo}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
     
 
 
@@ -112,7 +114,7 @@ class Materia(models.Model):
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Materia: {self.materia}\nFecha de Creación: {self.fecha_creacion.strftime("%d/%m/%Y")}"
+        return f"Materia: {self.materia}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
 
 
 
@@ -124,7 +126,7 @@ class Jornada(models.Model):
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Jornada: {self.jornada}\nFecha de Creación: {self.fecha_creacion.strftime("%d/%m/%Y")}"
+        return f"Jornada: {self.jornada}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
     
 
 
@@ -137,7 +139,7 @@ class Curso(models.Model):
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Curso: {self.curso}\nJornada: {self.id_jornada}\nFecha de Creación: {self.fecha_creacion.strftime("%d/%m/%Y")}"
+        return f"Curso: {self.curso}\nJornada: {self.id_jornada}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
 
 
 
@@ -151,7 +153,7 @@ class Docente(models.Model):
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Usuario: {self.id_usuario}\nMaterias: {self.id_materia}\nCursos: {self.id_curso}\nFecha de Creación: {self.fecha_creacion.strftime("%d/%m/%Y")}"
+        return f"Usuario: {self.id_usuario}\nMaterias: {self.id_materia}\nCursos: {self.id_curso}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
 
 
 
@@ -164,4 +166,4 @@ class Estudiante(models.Model):
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Usuario: {self.id_usuario}\nCurso: {self.id_curso}\nFecha de Creación: {self.fecha_creacion.strftime("%d/%m/%Y")}"
+        return f"Usuario: {self.id_usuario}\nCurso: {self.id_curso}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
