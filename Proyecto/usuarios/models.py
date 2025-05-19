@@ -2,8 +2,6 @@ from django.db import models
 
 
 
-
-
 # Modelo que almacena todos los datos de una persona independientemente su rol
 class Persona(models.Model):
     id_persona = models.AutoField(primary_key=True)
@@ -19,14 +17,12 @@ class Persona(models.Model):
     num_iden = models.CharField(max_length=12, unique=True)
     correo = models.EmailField(max_length=254)
     tel = models.CharField(max_length=15)
-    # Automatico cuando se crea el registro
+    # Se crea automático cuando se crea el registro
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        # Validar tipo de identificación y darle un nombre dependiendo el id que tenga
-        # Validar tipo estado y darle un nombre dependiendo el id que tenga
-        return f"Nombre: {self.nombre}\nApellido: {self.apellidos}\nTipo de Identificación: {self.tipo_iden}\nNúmero de Identificación: {self.num_iden}\nCorreo: {self.correo}\nTeléfono: {self.tel}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
+        return f"ID: {self.id_persona}\nNombre: {self.nombre}\nApellidos: {self.apellidos}\nTipo de Identificación: {self.tipo_iden}\nNúmero de Identificación: {self.num_iden}\nCorreo: {self.correo}\nTeléfono: {self.tel}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
 
 
 
@@ -46,7 +42,7 @@ class Usuario(models.Model):
         ('ina', 'Inactivo'),
         ('rev', 'En Revisión'),
     ]
-    # blank = True: Permite que el campo este vacio en formulario
+    # blank = True: Permite que el campo este vacío en el formulario
     # Permite que se guarde como null en la base de datos
     foto = models.CharField(max_length=250, blank=True, null=True)
     estado = models.CharField(max_length=3, choices=ESTADOS, default='act')
@@ -55,11 +51,11 @@ class Usuario(models.Model):
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Usuario: {self.usuario}\nClave: {self.clave}\nPersona: {self.id_persona}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
+        return f"ID: {self.id_usuario}\nUsuario: {self.usuario}\nClave: {self.clave}\nPersona: {self.id_persona}\nRol: {self.rol}\nEstado: {self.estado}\nRuta de Foto: {self.foto}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
     
 
 
-# Modelo de administrador y superuser del sistema
+# Modelo de administrador
 class Administrador(models.Model):
     id_administrador = models.AutoField(primary_key=True)
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
@@ -73,7 +69,7 @@ class Administrador(models.Model):
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Usuario: {self.id_usuario}\nCargo: {self.cargo}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
+        return f"ID: {self.id_administrador}\nUsuario: {self.id_usuario}\nCargo: {self.cargo}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
     
 
 
@@ -85,7 +81,7 @@ class Materia(models.Model):
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Materia: {self.materia}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
+        return f"ID: {self.id_materia}\nMateria: {self.materia}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
     
 
 
@@ -104,7 +100,7 @@ class Curso(models.Model):
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Curso: {self.curso}\nJornada: {self.jornada}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
+        return f"ID: {self.id_curso}\nCurso: {self.curso}\nJornada: {self.jornada}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
 
 
 
@@ -118,11 +114,11 @@ class Docente(models.Model):
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Usuario: {self.id_usuario}\nMaterias: {self.id_materia}\nCursos: {self.id_curso}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
+        return f"ID: {self.id_docente}\nUsuario: {self.id_usuario}\nMaterias: {self.id_materia}\nCursos: {self.id_curso}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
 
 
 
-# Modelo de estudiantes con relación 1 a muchos entre Curso
+# Modelo de estudiantes
 class Estudiante(models.Model):
     id_estudiante = models.AutoField(primary_key=True)
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
@@ -131,4 +127,4 @@ class Estudiante(models.Model):
     
     # Estructura de escritura que se mostrará al llamar al modelo
     def __str__(self):
-        return f"Usuario: {self.id_usuario}\nCurso: {self.id_curso}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
+        return f"ID: {self.id_estudiante}\nUsuario: {self.id_usuario}\nCurso: {self.id_curso}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
