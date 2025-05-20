@@ -37,14 +37,14 @@ class Usuario(models.Model):
         ('estud', 'Estudiante'),
     ]
     rol = models.CharField(max_length=5, choices=ROLES, default='estud')
+    # blank = True: Permite que el campo este vacío en el formulario
+    # Permite que se guarde como null en la base de datos
+    foto = models.CharField(max_length=250, blank=True, null=True)
     ESTADOS = [
         ('act', 'Activo'),
         ('ina', 'Inactivo'),
         ('rev', 'En Revisión'),
     ]
-    # blank = True: Permite que el campo este vacío en el formulario
-    # Permite que se guarde como null en la base de datos
-    foto = models.CharField(max_length=250, blank=True, null=True)
     estado = models.CharField(max_length=3, choices=ESTADOS, default='act')
     id_persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
