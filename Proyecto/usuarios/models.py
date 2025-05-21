@@ -1,5 +1,8 @@
 from django.db import models
 
+# Dar permisos de autenticación al modelo de Usuario
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+
 
 
 # Modelo que almacena todos los datos de una persona independientemente su rol
@@ -26,32 +29,56 @@ class Persona(models.Model):
 
 
 
-# Modelo que almacena los usuarios del sistema
-class Usuario(models.Model):
+# Modelo que almacena los usuarios del sistema, y válida la autenticación
+class UsuarioManager(BaseUserManager):
+    def create_user(self, usuario, clave=None, **extra_fields):
+        if not usuario:
+            raise ValueError('El nombre de usuario es obligatorio')
+        user = self.model(usuario=usuario, **extra_fields)
+        user.set_password(clave)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, usuario, clave, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(usuario, clave, **extra_fields)
+
+
+class Usuario(AbstractBaseUser, PermissionsMixin):
     id_usuario = models.AutoField(primary_key=True)
     usuario = models.CharField(max_length=50, unique=True)
-    clave = models.CharField(max_length=255)
+
     ROLES = [
         ('admin', 'Administrador'),
         ('docen', 'Docente'),
         ('estud', 'Estudiante'),
     ]
     rol = models.CharField(max_length=5, choices=ROLES, default='estud')
-    # blank = True: Permite que el campo este vacío en el formulario
-    # Permite que se guarde como null en la base de datos
+
     foto = models.CharField(max_length=250, blank=True, null=True)
+
     ESTADOS = [
         ('act', 'Activo'),
         ('ina', 'Inactivo'),
         ('rev', 'En Revisión'),
     ]
     estado = models.CharField(max_length=3, choices=ESTADOS, default='act')
-    id_persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
+
+    id_persona = models.ForeignKey('Persona', on_delete=models.CASCADE)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-    
-    # Estructura de escritura que se mostrará al llamar al modelo
+
+    # Campos requeridos por Django
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = UsuarioManager()
+
+    USERNAME_FIELD = 'usuario'
+    REQUIRED_FIELDS = []
+
     def __str__(self):
-        return f"ID: {self.id_usuario}\nUsuario: {self.usuario}\nClave: {self.clave}\nPersona: {self.id_persona}\nRol: {self.rol}\nEstado: {self.estado}\nRuta de Foto: {self.foto}\nFecha de Creación: {self.fecha_creacion.strftime('%d/%m/%Y')}"
+        return self.usuario
     
 
 
