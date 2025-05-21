@@ -17,12 +17,18 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from usuarios.views import registro_usuario, lista_usuarios, detalle_usuario, editar_usuario, eliminar_usuario
+
+# Importaciones del modulo de usuarios
+from usuarios.views import registro_usuario, lista_usuarios, detalle_usuario, editar_usuario, eliminar_usuario, login_usuario, inicio
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("login/", login_usuario, name="login"),
+    path("", inicio, name="inicio"),
     path("registro_usuario/", registro_usuario, name="registro_usuario"),
     path("usuarios/", lista_usuarios, name="lista_usuarios"),
+
+    # Primary Key como parámetro:
     path("usuarios/<int:pk>/", detalle_usuario, name="detalle_usuario"),
     path("usuarios/<int:pk>/editar/", editar_usuario, name="editar_usuario"),
     path("usuarios/<int:pk>/eliminar/", eliminar_usuario, name="eliminar_usuario"),
