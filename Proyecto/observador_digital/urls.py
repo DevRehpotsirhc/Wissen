@@ -19,11 +19,12 @@ from django.contrib import admin
 from django.urls import path
 
 # Importaciones del modulo de usuarios
-from usuarios.views import registro_usuario, lista_usuarios, detalle_usuario, editar_usuario, eliminar_usuario, login_usuario, inicio
+from usuarios.views import registro_usuario, lista_usuarios, detalle_usuario, editar_usuario, eliminar_usuario, login_usuario, inicio, logout_usuario
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("login/", login_usuario, name="login"),
+    path("logout", logout_usuario, name="logout"),
     path("", inicio, name="inicio"),
     path("registro_usuario/", registro_usuario, name="registro_usuario"),
     path("usuarios/", lista_usuarios, name="lista_usuarios"),
