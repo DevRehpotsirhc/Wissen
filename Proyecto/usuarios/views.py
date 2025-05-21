@@ -1,14 +1,12 @@
 # Atajos de Django (validación y carga de html, y demás)
 from django.shortcuts import render, redirect, get_object_or_404
-# Método de hasheo desde Django
-from django.contrib.auth.hashers import make_password
 # Autenticación y login
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # Manejo de mensajes de alerta e informe con Django
 from django.contrib import messages
 # Importación de los modelos necesarios en esta página
-from usuarios.models import Persona, Usuario, UsuarioManager, Administrador, Docente, Estudiante
+from usuarios.models import Persona, Usuario, UsuarioManager
 # Formularios necesarios en esta página
 from .forms import RegistroUsuarioForm, EditarUsuarioForm
 from typing import cast
@@ -26,6 +24,13 @@ def login_usuario(request):
         else:
             messages.error(request, 'Credenciales inválidas')
     return render(request, 'login.html')
+
+
+# logout
+@login_required
+def logout_usuario(request):
+    logout(request)
+    return redirect('login')
 
 
 @login_required
