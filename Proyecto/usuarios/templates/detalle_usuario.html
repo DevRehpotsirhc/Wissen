@@ -1,0 +1,5 @@
+<h2>Detalle de usuario</h2>
+<p>Nombre: {{ usuario.id_persona.nombre }} {{ usuario.id_persona.apellidos }}</p>
+<p>Correo: {{ usuario.id_persona.correo }}</p>
+<p>Rol: {{ usuario.get_rol_display }}</p>
+<a href="{% url 'lista_usuarios' %}">Volver</a>
