@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from .models import Persona, Usuario, Administrador, Docente, Estudiante
-from .forms import RegistroUsuarioForm
+from .forms import RegistroUsuarioForm, EditarUsuarioForm
 from django.db import transaction, IntegrityError
 
+
+# Creaación de usuarios
 def registro_usuario(request):
     if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST)
@@ -53,3 +55,39 @@ def registro_usuario(request):
         form = RegistroUsuarioForm()
 
     return render(request, 'registro_usuario.html', {'form': form})
+
+
+# Lectura de Usuarios
+# Listado de usuarios
+def lista_usuarios(request):
+    usuarios = Usuario.objects.select_related('id_persona').all()
+    return render(request, 'lista_usuarios.html', {'usuarios': usuarios})
+
+# Detalles de usuario
+def detalle_usuario(request, pk):
+    usuario = get_object_or_404(Usuario, pk=pk)
+    return render(request, 'detalle_usuario.html', {'usuario': usuario})
+
+
+# Editar usuario
+def editar_usuario(request, pk):
+    usuario = get_object_or_404(Usuario, pk=pk)
+    if request.method == 'POST':
+        form = EditarUsuarioForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Usuario actualizado correctamente.')
+            return redirect('detalle_usuario', pk=usuario.pk)
+    else:
+        form = EditarUsuarioForm(instance=usuario)
+    return render(request, 'editar_usuario.html', {'form': form})
+
+
+# Eliminar usuario
+def eliminar_usuario(request, pk):
+    usuario = get_object_or_404(Usuario, pk=pk)
+    if request.method == 'POST':
+        usuario.delete()
+        messages.success(request, 'Usuario eliminado correctamente.')
+        return redirect('lista_usuarios')
+    return render(request, 'eliminar_usuario.html', {'usuario': usuario})

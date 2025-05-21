@@ -1,5 +1,5 @@
 from django import forms
-from .models import Curso, Materia
+from .models import Curso, Materia, Usuario
 
 class RegistroUsuarioForm(forms.Form):
     nombre = forms.CharField(max_length=50)
@@ -30,3 +30,9 @@ class RegistroUsuarioForm(forms.Form):
     id_curso = forms.ModelChoiceField(queryset=Curso.objects.all(), required=False)
     materias = forms.ModelMultipleChoiceField(queryset=Materia.objects.all(), required=False)
     cursos = forms.ModelMultipleChoiceField(queryset=Curso.objects.all(), required=False)
+
+
+class EditarUsuarioForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['usuario', 'rol', 'estado', 'foto']
