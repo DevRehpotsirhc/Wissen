@@ -1,4 +1,3 @@
-//    // Validación con Regex
 //     const form = document.getElementById("form-login");
 //     const message = document.getElementById("message");
 
@@ -8,21 +7,20 @@
 //     const usuario = document.getElementById("usuario").value.trim();
 //     const clave = document.getElementById("clave").value.trim();
 
-//     // Regex para validar exactamente "Lyda" y "lyda123"
 //     const usuarioValido = /^Wissen$/ || /^wissen$/;
 //     const claveValida = /^1234wissen$/;
 
 //     if (usuarioValido.test(usuario) && claveValida.test(clave)) {
 //         message.style.color = "limegreen";
 //         message.textContent = "Usuario o contraseña correctos";
+//         alert("¡ Bienvenido(a) al Observador Digital!");
 //     } else {
 //         message.style.color = "crimson";
 //         message.textContent = "Usuario o contraseña incorrectos";
 //     }
 //     });
-        // alert("Usuario y contraseña correctos. Bienvenid@ " + usuario + "!");
 
-    // Mostrar/ocultar contraseña
+    // Mostrar/ocultar contraseña Ojo
     const iconOjo = document.getElementById("icon_ojo");
     const inputPass = document.getElementById("clave");
 
@@ -38,43 +36,52 @@
     }
     });
     
+    // Validaciones usuario y contraseña
     document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('form-login');
     const usuarioInput = document.getElementById('usuario');
     const claveInput = document.getElementById('clave');
     const messageDiv = document.getElementById('message');
 
+    // Validación para usuario
     usuarioInput.addEventListener('input', function(e) {
+    const value = e.target.value.trim();
+    const maxCaracteres = 50;
+    const caracteresInvalidos = /[^a-zA-Z0-9]/g;
+
+    // Limpiar caracteres inválidos
+    if (caracteresInvalidos.test(value)) {
+        e.target.value = value.replace(caracteresInvalidos, '');
+        showMessage('Solo se permiten letras y números en el usuario', 'error');
+    }
+
+    // Validar longitud máxima
+    if (e.target.value.length > maxCaracteres) {
+        e.target.value = e.target.value.slice(0, maxCaracteres);
+        showMessage(`Máximo ${maxCaracteres} caracteres permitidos`, 'error');
+    }
+});
+
+// Validación para contraseña
+    claveInput.addEventListener('input', function(e) {
         const value = e.target.value.trim();
         const maxCaracteres = 50;
-        const caracteresInvalidos = /[^a-zA-Z0-9]/g;
+        const caracteresValidos = /[^a-zA-Z0-9ñÑ]/g;
 
         // Limpiar caracteres inválidos
         if (caracteresInvalidos.test(value)) {
-            e.target.value = value.replace(caracteresInvalidos, '');
-            showMessage('Solo se permiten letras y números en el usuario', 'error');
+            e.target.value = value.replace(caracteresValidos, '');
+            showMessage('Solo se permiten letras y números en la contraseña', 'error');
         }
 
-        // Validar longitud máxima
+        // Validar longitud máxima 50 caracteres
         if (e.target.value.length > maxCaracteres) {
             e.target.value = e.target.value.slice(0, maxCaracteres);
             showMessage(`Máximo ${maxCaracteres} caracteres permitidos`, 'error');
         }
     });
 
-    // Validación para contraseña
-    claveInput.addEventListener('input', function(e) {
-        const value = e.target.value;
-        const caracteresInvalidos = /[^a-zA-Z0-9]/g;
-
-        if (caracteresInvalidos.test(value)) {
-            e.target.value = value.replace(caracteresInvalidos, '');
-            showMessage('Solo se permiten letras y números en la contraseña', 'error');
-        }
-    });
-
-    
-
+    // muestra el mensaje de error 
     function showMessage(msg, type) {
         messageDiv.innerHTML = `
             <div class="alert ${type}">
@@ -82,9 +89,9 @@
             </div>
         `;
         
-        // Limpiar mensaje después de 5 segundos
-        setTimeout(() => {
-            messageDiv.innerHTML = '';
-        }, 5000);
+    // Limpiar mensaje después de 5 segundos
+    setTimeout(() => {
+        messageDiv.innerHTML = '';
+    }, 5000);
     }
 });

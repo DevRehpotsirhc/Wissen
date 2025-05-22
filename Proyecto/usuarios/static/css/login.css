@@ -1,73 +1,4 @@
-    /* icono ojo  */
-    #input-con-icono {
-    position: relative;
-    width: 100%;
-    }
-
-    #input-con-icono input {
-    width: 100%;
-    padding-right: 10px; /* espacio para el icono a la derecha */
-    }
-
-    #icon_ojo {
-    position: absolute;
-    right: 1px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #000000;
-    font-size: 20px; /* ajusta el tamaño si quieres */
-    user-select: none; /* evitar que se seleccione al hacer clic */
-    }
-
-    /* mensaje validacion */
-    .message {
-    margin-top: 15px;
-    text-align: center;
-    font-weight: bold;
-    }
-
-    /* botones */
-    .btn-contenedor {
-    display: flex;
-    justify-content: space-between;
-    gap: 4px;
-    margin-top: 20px;
-    }
-
-    .btn-contenedor .btn {
-    flex: 1;
-    padding: 10px;
-    text-align: center;
-    }
-
-    .btn-contenedor button a {
-    display: block;
-    width: 100%;
-    height: 100%;
-    color: white;
-    text-decoration: none;
-    font-family: 'Inclusive Sans', sans-serif;
-    }
-
-    .btn  {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    color: white;
-    border-radius: 20px;
-    margin: 0 5px;
-    cursor: pointer;
-    }
-
-    .btn-registro {
-    background: #00A0DC;
-    }
-
-    .btn-ingreso {
-    background: #004ACC;
-    }
-
+    /* body */
     body {
     background-color: var(--fondo);
     display: flex;
@@ -79,8 +10,8 @@
     .contenedor-login {
     display: flex;
     width: 100%;
-    max-width: 1400px;
-    height: 650px;
+    max-width: 1200px;
+    height: 620px;
     background-color: white;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -133,6 +64,10 @@
     font-size: 40px;
     }
 
+    .form-login{
+    margin-bottom: 20px;
+    }
+
     form label {
     display: block;
     margin-top: 15px;
@@ -145,10 +80,35 @@
     border-radius: 8px;
     border: 1px solid #ccc;
     background-color: #F5F5F5;
-
     }
-    .form-login{
-    margin-bottom: 20px;
+
+    /* icono ojo  */
+    #input-con-icono {
+    position: relative;
+    width: 100%;
+    }
+
+    #input-con-icono input {
+    width: 100%;
+    padding-right: 10px; /* espacio para el icono a la derecha */
+    }
+
+    #icon_ojo {
+    position: absolute;
+    right: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #000000;
+    font-size: 20px; /* ajusta el tamaño si quieres */
+    user-select: none; /* evitar que se seleccione al hacer clic */
+    }
+
+    /* mensaje validacion */
+    .message {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
     }
     
     .olvido_contraseña {
@@ -158,4 +118,51 @@
     color: #0074d9;
     text-decoration: none;
     font-family: 'Inclusive Sans', sans-serif; 
+    }
+
+     /* mensajes de validaciones  */
+    .alert.error{
+    color: #ff0000; 
+    background: #fff0f0;
+    }
+    
+    /* botones */
+    .btn-registro {
+    background: #00A0DC;
+    }
+
+    .btn-ingreso {
+    background: #004ACC;
+    }
+
+    .btn-contenedor {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    margin-top:40px;
+    }
+
+    .btn-contenedor .btn {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    }
+
+    .btn-contenedor button a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: white;
+    text-decoration: none;
+    font-family: 'Inclusive Sans', sans-serif;
+    }
+
+    .btn  {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    margin: 0 5px;
+    cursor: pointer;
     }
