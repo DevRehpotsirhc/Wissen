@@ -1,11 +1,56 @@
-<form method="POST">
-    {% csrf_token %}
-    <input type="text" name="usuario" placeholder="Usuario" required>
-    <input type="password" name="clave" placeholder="Clave" required>
-    <button type="submit">Iniciar sesión</button>
-</form>
-{% if messages %}
-    {% for message in messages %}
-        <p style="color:red;">{{ message }}</p>
-    {% endfor %}
-{% endif %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
+    <link rel="stylesheet" href="{% static "css/base.css" %}">
+</head>
+<body>
+    <div class="contenedor-login">
+        <div class="panel-izquierdo">
+            <img src="{% static "images/robot-solo.png" %}" alt="Robot Wissen" class="robot" />
+            <h3 style="font;">¡ Bienvenido de nuevo !</h3>
+        </div>
+        
+        <div class="panel-derecho">
+            <div class="formulario">
+                <img src="{% static "images/logo.svg" %}" alt="Logo Wissen" class="logo" />
+                <h2 id="istok-web">Iniciar sesión</h2>
+
+                <form method="POST" id="form-login">
+                    <div id="message" class="message"> </div>
+                    {% csrf_token %}
+                    <label for="usuario">Usuario</label>
+                    <input type="text" name="usuario" id="usuario" required>
+                    <label for="clave">Contraseña</label>
+                    <div class="ver_contraseña" id="input-con-icono">
+                        <input type="password" name="clave" id="clave" required>
+                        <i class="fa-solid fa-eye" id="icon_ojo"></i>
+                    </div>
+                    <div class="btn-contenedor">
+                        <button type="button" class="btn btn-registro">
+                            <a href="{% url 'registro_usuario' %}">Registrar</a>
+                        </button>
+                        <input type="submit" class="btn btn-ingreso" value="Ingresar" />
+                    </div>
+                </form>
+                
+                {% if messages %}
+                    {% for message in messages %}
+                        <p style="color:red;">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}                
+                {% comment %} <a href="#" class="olvido_contraseña">¿Olvidaste tu contraseña?</a> {% endcomment %}
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/2c77c5521d.js" crossorigin="anonymous"></script>
+    <script src="{% static "js/login.js" %}"></script> 
+
+
+
+
+</body>
+</html>
