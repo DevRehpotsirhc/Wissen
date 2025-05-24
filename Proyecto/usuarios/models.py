@@ -65,7 +65,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     ]
     estado = models.CharField(max_length=3, choices=ESTADOS, default='act')
 
-    id_persona = models.ForeignKey('Persona', on_delete=models.CASCADE)
+    id_persona = models.ForeignKey('Persona', on_delete=models.CASCADE, db_column="id_persona")
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     # Campos requeridos por Django
@@ -85,7 +85,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 # Modelo de administrador
 class Administrador(models.Model):
     id_administrador = models.AutoField(primary_key=True)
-    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, db_column="id_usuario")
     CARGOS = [
         ('rec', 'Rector'),
         ('dir', 'Director'),
@@ -134,9 +134,9 @@ class Curso(models.Model):
 # Modelo de docentes con relación con Materia y Curso
 class Docente(models.Model):
     id_docente = models.AutoField(primary_key=True)
-    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    id_materia = models.ManyToManyField(Materia, related_name="docente_materia")
-    id_curso = models.ManyToManyField(Curso, related_name="docente_curso")
+    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, db_column="id_usuario")
+    id_materia = models.ManyToManyField(Materia, related_name="docente_materia", db_column="id_materia")
+    id_curso = models.ManyToManyField(Curso, related_name="docente_curso", db_column="id_curso")
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     
     # Estructura de escritura que se mostrará al llamar al modelo
@@ -148,8 +148,8 @@ class Docente(models.Model):
 # Modelo de estudiantes
 class Estudiante(models.Model):
     id_estudiante = models.AutoField(primary_key=True)
-    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    id_curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, db_column="id_usuario")
+    id_curso = models.ForeignKey(Curso, on_delete=models.CASCADE, db_column="id_curso")
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     
     # Estructura de escritura que se mostrará al llamar al modelo

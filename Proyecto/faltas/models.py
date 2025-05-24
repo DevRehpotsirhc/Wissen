@@ -28,12 +28,12 @@ class Falta(models.Model):
         ('2','Moderada'),
         ('3','Grave'),
     ]
-    tipo_falta = models.CharField(max_length=1, )
+    tipo_falta = models.CharField(max_length=1, choices=TIPOS, default="1")
     desc = models.TextField()
-    id_estudiante = models.ForeignKey(Estudiante, on_delete=models.PROTECT)
-    id_docente = models.ForeignKey(Docente, on_delete=models.PROTECT, null=True, blank=True)        # Se deja como null ya que una falta solo puede tener un docente o un administrador
-    id_administrador = models.ForeignKey(Administrador, on_delete=models.PROTECT, null=True, blank=True)
-    id_justificacion = models.ForeignKey(Justificacion, on_delete=models.PROTECT, null=True, blank=True)        # La justificación de deja como null por si el estudiante no responde
+    id_estudiante = models.ForeignKey(Estudiante, on_delete=models.PROTECT, db_column="id_estudiante")
+    id_docente = models.ForeignKey(Docente, on_delete=models.PROTECT, null=True, blank=True, db_column="id_docente")        # Se deja como null ya que una falta solo puede tener un docente o un administrador
+    id_administrador = models.ForeignKey(Administrador, on_delete=models.PROTECT, null=True, blank=True, db_column="id_administrador")
+    id_justificacion = models.ForeignKey(Justificacion, on_delete=models.PROTECT, null=True, blank=True, db_column="id_justificacion")        # La justificación de deja como null por si el estudiante no responde
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     
     # Estructura de escritura que se mostrará al llamar al modelo
