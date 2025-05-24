@@ -91,9 +91,10 @@ class Administrador(models.Model):
     CARGOS = [
         ('rec', 'Rector'),
         ('dir', 'Director'),
+        ('cor', 'Coordinador'),
         ('adm', 'Administrador'),
     ]
-    cargo = models.CharField(max_length=50, choices=CARGOS, default='adm')
+    cargo = models.CharField(max_length=3, choices=CARGOS, default='adm')
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     
     # Estructura de escritura que se mostrará al llamar al modelo
