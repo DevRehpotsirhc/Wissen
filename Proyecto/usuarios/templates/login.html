@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Log in</title>
+    <title>Login</title>
     <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
     <link rel="stylesheet" href="{% static "css/base.css" %}">
 </head>
@@ -11,13 +11,13 @@
     <div class="contenedor-login">
         <div class="panel-izquierdo">
             <img src="{% static "images/robot-solo.png" %}" alt="Robot Wissen" class="robot" />
-            <h3>¡Bienvenido de nuevo!</h3>
+            <h3 class="titulo">¡Bienvenido de nuevo!</h3>
         </div>
         
         <div class="panel-derecho">
             <div class="formulario">
                 <img src="{% static "images/logo.svg" %}" alt="Logo Wissen" class="logo" />
-                <h2 id="istok-web">Iniciar sesión</h2>
+                <h2 class="titulo">Iniciar sesión</h2>
 
                 <form method="POST" id="form-login">
                     <div id="message" class="message"> </div>

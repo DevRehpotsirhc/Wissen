@@ -30,10 +30,13 @@
 
 }
 
-h2, .titulo {
+.titulo {
     font-family: var(--titulo);
-    color: var(--texto);
-    
+    color: var(--texto);   
+}
+body {
+    font-family: var(--cuerpo);
+    color: var(--texto)
 }
 
 h3{
