@@ -9,10 +9,10 @@ from faltas.models import Falta
 # Tabla usada para el trigger de faltas y almacenar los IDs para generar el informe
 class ListaChequeo(models.Model):
     id_lista_chequeo = models.AutoField(primary_key=True)
-    id_estudiante = models.ForeignKey(Estudiante, on_delete=models.PROTECT)
-    id_docente = models.ForeignKey(Docente, on_delete=models.PROTECT, null=True)
-    id_administrador = models.ForeignKey(Administrador, on_delete=models.PROTECT, null=True)
-    id_falta = models.ForeignKey(Falta, on_delete=models.PROTECT)
+    id_estudiante = models.ForeignKey(Estudiante, on_delete=models.PROTECT, db_column="id_estudiante")
+    id_docente = models.ForeignKey(Docente, on_delete=models.PROTECT, null=True, db_column="id_docente")
+    id_administrador = models.ForeignKey(Administrador, on_delete=models.PROTECT, null=True, db_column="id_administrador")
+    id_falta = models.ForeignKey(Falta, on_delete=models.PROTECT, db_column="id_falta")
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
 
@@ -25,10 +25,10 @@ class GenInfo(models.Model):
         ('pdf', '.pdf'),
         ('word', '.docx'),
     ]
-    tipo = models.CharField(max_length=4, choices=TIPOS, default='pdf')
-    id_lista_chequeo = models.ForeignKey(ListaChequeo, on_delete=models.PROTECT)
-    id_docente = models.ForeignKey(Docente, on_delete=models.PROTECT, null=True, blank=True)        # Docente o administrador que crea el informe se guardan sus credenciales para saber quién generó el informe
-    id_administrador = models.ForeignKey(Administrador, on_delete=models.PROTECT, null=True, blank=True)
+    tipo = models.CharField(max_length=4, choices=TIPOS, default='csv')
+    id_lista_chequeo = models.ForeignKey(ListaChequeo, on_delete=models.PROTECT, db_column="id_lista_chequeo")
+    id_docente = models.ForeignKey(Docente, on_delete=models.PROTECT, null=True, blank=True, db_column="id_docente")        # Docente o administrador que crea el informe se guardan sus credenciales para saber quién generó el informe
+    id_administrador = models.ForeignKey(Administrador, on_delete=models.PROTECT, null=True, blank=True, db_column="id_administrador")
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     # Estructura de escritura que se mostrará al llamar al modelo
