@@ -6,21 +6,23 @@ from django.contrib.auth.decorators import login_required
 # Manejo de mensajes de alerta e informe con Django
 from django.contrib import messages
 # Importación de los modelos necesarios en esta página
-from usuarios.models import Persona, Usuario, UsuarioManager
+from usuarios.models import Administrador, Docente, Estudiante, Persona, Usuario, UsuarioManager, Materia, Curso
 # Formularios necesarios en esta página
-from .forms import RegistroUsuarioForm, EditarUsuarioForm
+from .forms import EditarUsuarioForm
 from typing import cast
 
 
 # Login de usuarios
 def login_usuario(request):
+    if request.user.is_authenticated:
+        return redirect('inicio')
     if request.method == 'POST':
         usuario = request.POST.get('usuario')
         clave = request.POST.get('clave')
         usuario_auth = authenticate(request, username=usuario, password=clave)
         if usuario_auth is not None:
             login(request, usuario_auth)
-            return redirect('inicio')  # El nombre debe ser adaptado
+            return redirect('inicio')
         else:
             messages.error(request, 'Credenciales inválidas')
     return render(request, 'login.html')
@@ -38,39 +40,62 @@ def inicio(request):
     return render(request, 'inicio.html')
 
 
-# Creaación de usuarios
+# Creaación de usuario
 def registro_usuario(request):
     if request.method == 'POST':
-        form = RegistroUsuarioForm(request.POST)
+        # Recolección de los datos del formulario
+        nombre = request.POST.get('nombre')
+        apellidos = request.POST.get('apellidos')
+        tipo_iden = request.POST.get('tipo_iden')
+        num_iden = request.POST.get('num_iden')
+        correo = request.POST.get('correo')
+        tel = request.POST.get('tel')
+        usuario_txt = request.POST.get('usuario')
+        clave = request.POST.get('clave')
+        rol = request.POST.get('rol')
+        foto = request.POST.get('foto', '')
 
-        if form.is_valid():
-            # Primero, creamos la persona (esto ya lo haces)
-            persona = Persona.objects.create(
-                nombre=form.cleaned_data['nombre'],
-                apellidos=form.cleaned_data['apellidos'],
-                tipo_iden=form.cleaned_data['tipo_iden'],
-                num_iden=form.cleaned_data['num_iden'],
-                correo=form.cleaned_data['correo'],
-                tel=form.cleaned_data['tel']
-            )
+        # Creación de la persona
+        persona = Persona.objects.create(
+            nombre=nombre,
+            apellidos=apellidos,
+            tipo_iden=tipo_iden,
+            num_iden=num_iden,
+            correo=correo,
+            tel=tel,
+        )
 
-            # Luego, creamos el usuario forzando el tipo del manager
-            usuario = cast(UsuarioManager, Usuario.objects).create_user(
-                usuario=form.cleaned_data['usuario'],
-                clave=form.cleaned_data['clave'],
-                rol=form.cleaned_data['rol'],
-                foto=form.cleaned_data['foto'],
-                id_persona=persona
-            )
+        # Creación del usuario
+        usuario = cast(UsuarioManager, Usuario.objects).create_user(
+            usuario=usuario_txt,
+            clave=clave,
+            rol=rol,
+            foto=foto,
+            id_persona=persona,
+        )
 
-            # Aquí puedes redirigir o hacer lo que necesites
-            return redirect('login')  # o alguna otra vista
+        if rol == 'admin':
+            cargo = request.POST.get('cargo')
+            Administrador.objects.create(id_usuario=usuario, cargo=cargo)
 
-    else:
-        form = RegistroUsuarioForm()
+        if rol == 'docen':
+            materias_ids = request.POST.getlist('materias')
+            cursos_ids = request.POST.getlist('cursos')
+            docente = Docente.objects.create(id_usuario=usuario)
+            docente.id_materia.set(materias_ids)
+            docente.id_curso.set(cursos_ids)
+        
+        if rol == 'estud':
+            id_curso = request.POST.get('id_curso')
+            Estudiante.objects.create(id_usuario=usuario, id_curso=id_curso)
 
-    return render(request, 'registro_usuario.html', {'form': form})
-
+        messages.success(request, 'Usuario creado correctamente.')
+        return redirect('login')
+    
+    materias = Materia.objects.all()
+    cursos = Curso.objects.all()
+    
+    return render(request, 'registro_usuario.html', {'materias': materias,'cursos': cursos})
 
 # Lectura de Usuarios
 # Listado de usuarios
