@@ -7,16 +7,111 @@
   <link rel="stylesheet" href="{% static 'css/registro_usuario.css' %}">
 </head>
 <body>
+
+
   <h1>Registrar Usuario</h1>
+
+  {% comment %} Manejo de alertas {% endcomment %}
   {% if messages %}
     {% for message in messages %}
-      <p style="color: {{ message.tags }}">{{ message }}</p>
+      <div class="alert alert-success">{{ message }}</div>
     {% endfor %}
   {% endif %}
+
+  {% comment %} Formulario de registro {% endcomment %}
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+
+    <label for="nombre">Nombre</label><br>
+    <input type="text" name="nombre" placeholder="Nombre" required><br>
+
+    <label for="apellidos">Apellidos</label><br>
+    <input type="text" name="apellidos" placeholder="Apellidos" required><br>
+
+
+    <label for="tipo_iden">Tipo de Identificación</label><br>
+    <select name="tipo_iden" required>
+        <option value="ti">Tarjeta de Identidad</option>
+        <option value="ci">Cédula de Identidad</option>
+        <option value="ce">Cédula de Extrajería</option>
+        <option value="ppt">Permiso por Protección Temporal</option>
+    </select><br>
+
+    <label for="num_iden">Número de Identificación</label><br>
+    <input type="text" name="num_iden" placeholder="Número de ID" required><br>
+
+
+    <label for="correo">Correo</label><br>
+    <input type="email" name="correo" placeholder="Correo" required><br>
+
+    <label for="tel">Teléfono</label><br>
+    <input type="text" name="tel" placeholder="Teléfono" required><br>
+
+    <label for="usuario">Usuario</label><br>
+    <input type="text" name="usuario" placeholder="Usuario" required><br>
+
+    <label for="clave">Clave</label><br>
+    <input type="password" name="clave" placeholder="Contraseña" required><br>
+
+
+    <label for="rol">Rol</label><br>
+    <select name="rol" required>
+      <option value="estud">Estudiante</option>
+      <option value="docen">Docente</option>
+        <option value="admin">Administrador</option>
+    </select><br>
+
+    {% comment %} De momento queda comentado hasta saber cómo usarlo {% endcomment %}
+    {% comment %} <label for="foto">Foto</label><br>
+    <input type="text" name="foto" placeholder="URL Foto (opcional)"><br> {% endcomment %}
+
+    {% comment %} Solo se muestra si es rol Administrador {% endcomment %}
+    <div id="grupo-cargo">
+      <label for="cargo">Cargo</label><br>
+      <select name="cargo">
+        <option value="">Selección</option>
+        <option value="rec">Rector</option>
+        <option value="dir">Director</option>
+        <option value="adm">Administrador</option>
+      </select><br>
+    </div>
+
+    {% comment %} Solo se muestra si es rol Docente {% endcomment %}
+    <div id="grupo-materias">
+      <label for="materias">Materias</label><br>
+      <select name="materias" multiple>
+        {% for materia in materias %}
+          <option value="{{ materia.id }}">{{ materia.nombre }}</option>
+        {% endfor %}
+      </select><br>
+    </div>
+
+    <div id="grupo-cursos">
+      <label for="cursos">Cursos</label><br>
+      <select name="cursos" multiple>
+        {% for curso in cursos %}
+          <option value="{{ curso.id }}">{{ curso.nombre }}</option>
+        {% endfor %}
+      </select><br>
+    </div>
+
+    {% comment %} Solo se muestra si es rol Estudiante {% endcomment %}
+    <div id="grupo-id_curso">
+      <label for="id_curso">Curso</label><br>
+      <select name="id_curso">
+        <option value="">Seleccionar</option>
+        {% for curso in cursos %}
+          <option value="{{ curso.id }}">{{ curso.nombre }}</option>
+        {% endfor %}
+      </select><br>
+    </div>
+
+
     <button type="submit">Registrar</button>
   </form>
+
+  {% comment %} Validación de campos para verificar el rol y sus campos requeridos para el registro {% endcomment %}
+  <script src="{% static 'js/campos_por_rol.js' %}"></script>
+  
 </body>
 </html>
