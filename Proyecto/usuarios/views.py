@@ -28,13 +28,14 @@ def login_usuario(request):
     return render(request, 'login.html')
 
 
-# logout
+# Logout del sistema
 @login_required
 def logout_usuario(request):
     logout(request)
     return redirect('login')
 
 
+# Página de inicio del sistema
 @login_required
 def inicio(request):
     return render(request, 'inicio.html')
@@ -74,6 +75,8 @@ def registro_usuario(request):
             id_persona=persona,
         )
 
+
+        # Se formalizan los roles creando objetos con los datos requeridos para su registro
         if rol == 'admin':
             cargo = request.POST.get('cargo')
             Administrador.objects.create(id_usuario=usuario, cargo=cargo)
@@ -92,10 +95,20 @@ def registro_usuario(request):
         messages.success(request, 'Usuario creado correctamente.')
         return redirect('login')
     
+    # Contexto proporcionado hacia la página
     materias = Materia.objects.all()
     cursos = Curso.objects.all()
     
     return render(request, 'registro_usuario.html', {'materias': materias,'cursos': cursos})
+
+
+
+
+
+#      ** CAMBIAR ESTAS VISTAS PARA ACTUAR SOBRE EL OBJETO DE PERSONA TAMBIÉN **
+
+
+
 
 # Lectura de Usuarios
 # Listado de usuarios
@@ -103,6 +116,7 @@ def registro_usuario(request):
 def lista_usuarios(request):
     usuarios = Usuario.objects.select_related('id_persona').all()
     return render(request, 'lista_usuarios.html', {'usuarios': usuarios})
+
 
 # Detalles de usuario
 @login_required

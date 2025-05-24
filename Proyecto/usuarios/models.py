@@ -31,15 +31,17 @@ class Persona(models.Model):
 
 # Modelo que almacena los usuarios del sistema, y válida la autenticación
 class UsuarioManager(BaseUserManager):
-    def create_user(self, usuario, clave=None, **extra_fields):
+    def create_user(self, usuario, clave=None, **extra_fields):     # Al haber cambiado la valicación de usuarios de django por una personalizada se debe crear un UserManager con este método de creación
         if not usuario:
             raise ValueError('El nombre de usuario es obligatorio')
+        
         user = self.model(usuario=usuario, **extra_fields)
         user.set_password(clave)
         user.save(using=self._db)
+
         return user
 
-    def create_superuser(self, usuario, clave, **extra_fields):
+    def create_superuser(self, usuario, clave, **extra_fields):     # El superuser es obligatorio para Django aunque en este caso los superusers no se pueden crear mediante ningún registro, debido al control total, se deja como opción dentro de la propia base de datos, eso sin contar que ** NO SE ESTÁ USANDO EL ADMIN QUE INCLUYE DJANGO ** así que no se podría sacar partido de dicho usuario 
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(usuario, clave, **extra_fields)
