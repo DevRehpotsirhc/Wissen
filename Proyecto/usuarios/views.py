@@ -9,7 +9,6 @@ from django.contrib import messages
 from usuarios.models import Administrador, Docente, Estudiante, Persona, Usuario, UsuarioManager, Materia, Curso
 # Formularios necesarios en esta página
 from .forms import EditarUsuarioForm
-from typing import cast
 
 
 # Login de usuarios
@@ -67,7 +66,7 @@ def registro_usuario(request):
         )
 
         # Creación del usuario
-        usuario = cast(UsuarioManager, Usuario.objects).create_user(
+        usuario = Usuario.objects.create_user(
             usuario=usuario_txt,
             clave=clave,
             rol=rol,
