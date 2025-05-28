@@ -9,6 +9,14 @@ from django.contrib import messages
 from usuarios.models import Administrador, Docente, Estudiante, Persona, Usuario, UsuarioManager, Materia, Curso
 # Formularios necesarios en esta página
 from .forms import EditarUsuarioForm
+from datetime import datetime
+
+
+
+
+# Variables globales
+def globals(request):
+    return {'fecha': datetime.now().year}
 
 
 # Login de usuarios
