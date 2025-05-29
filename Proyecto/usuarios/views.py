@@ -150,7 +150,7 @@ def editar_usuario(request, pk):
 # Eliminar usuario
 @login_required
 def eliminar_usuario(request, pk):
-    usuario = get_object_or_404(Usuario, pk=pk)
+    usuario = get_object_or_404(Persona, pk=pk)
     if request.method == 'POST':
         usuario.delete()
         messages.success(request, 'Usuario eliminado correctamente.')

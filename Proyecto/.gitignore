@@ -1,5 +1,9 @@
 # Se omiten los archivos almacenados en caché para git
 observador_digital/__pycache__
+observador_digital/migrations/__pycache__
 usuarios/__pycache__
+usuarios/migrations/__pycache__
 faltas/__pycache__
+faltas/migrations/__pycache__
 gen_infos/__pycache__
+gen_infos/migrations/__pycache__
