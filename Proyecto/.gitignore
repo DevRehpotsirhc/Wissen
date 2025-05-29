@@ -1,9 +1,28 @@
-# Se omiten los archivos almacenados en caché para git
+# En este archivo radican todas las rutas del
+# proyecto que serán ignoradas por git en 
+# su seguimiento de modificaciones
+
+
+
+# Caché del módulo principal
 observador_digital/__pycache__
 observador_digital/migrations/__pycache__
+
+# Caché del módulo de usuarios
 usuarios/__pycache__
 usuarios/migrations/__pycache__
+
+# Caché del módulo de faltas
 faltas/__pycache__
 faltas/migrations/__pycache__
+
+# Caché del módulo de generador de informes
 gen_infos/__pycache__
 gen_infos/migrations/__pycache__
+
+
+
+# Entorno virtual local para Django
+env
+# Otro nombre común
+venv
