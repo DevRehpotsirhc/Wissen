@@ -1,0 +1,5 @@
+# Se omiten los archivos almacenados en caché para git
+observador_digital/__pycache__
+usuarios/__pycache__
+faltas/__pycache__
+gen_infos/__pycache__
