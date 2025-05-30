@@ -82,7 +82,7 @@
       <label for="materias">Materias</label><br>
       <select name="materias" multiple>
         {% for materia in materias %}
-          <option value="{{ materia.id }}">{{ materia.nombre }}</option>
+          <option value="{{ materia.id_materia }}">{{ materia.materia }}</option>
         {% endfor %}
       </select><br>
     </div>
@@ -91,7 +91,7 @@
       <label for="cursos">Cursos</label><br>
       <select name="cursos" multiple>
         {% for curso in cursos %}
-          <option value="{{ curso.id }}">{{ curso.nombre }}</option>
+          <option value="{{ curso.id_curso }}">{{ curso.curso }}</option>
         {% endfor %}
       </select><br>
     </div>
@@ -102,7 +102,7 @@
       <select name="id_curso">
         <option value="">Seleccionar</option>
         {% for curso in cursos %}
-          <option value="{{ curso.id }}">{{ curso.nombre }}</option>
+          <option value="{{ curso.id_curso }}">{{ curso.curso }}</option>
         {% endfor %}
       </select><br>
     </div>

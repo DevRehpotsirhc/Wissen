@@ -1,16 +1,4 @@
+
 <h2>Lista de usuarios</h2>
-<table>
-  <tr><th>ID</th><th>Usuario</th><th>Rol</th><th>Acciones</th></tr>
-  {% for u in usuarios %}
-  <tr>
-    <td>{{ u.id_usuario }}</td>
-    <td>{{ u.usuario }}</td>
-    <td>{{ u.get_rol_display }}</td>
-    <td>
-      <a href="{% url 'detalle_usuario' u.id_usuario %}">Ver</a> |
-      <a href="{% url 'editar_usuario' u.id_usuario %}">Editar</a> |
-      <a href="{% url 'eliminar_usuario' u.id_usuario %}">Eliminar</a>
-    </td>
-  </tr>
-  {% endfor %}
-</table>
+
+{% include "tabla_persona.html" %}
