@@ -1,1 +1,247 @@
-/* body */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--fondo);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    }
+
+.contenedor-registro {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 400px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.panel-izquierdo, .panel-derecho {
+    padding: 24px 10px; /* Menos padding */
+}
+
+.panel-izquierdo {
+    flex: 1;
+    /* background-image: url('/images/fondo-panel-izq.avif'); */
+    background: linear-gradient(to bottom, #B3E4FC, #3B82F6);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 10px;
+}
+
+
+    .panel-izquierdo h2 {
+    color: #000;
+    font-size: 45px;
+    }
+
+    .robot {
+    max-width: 450px;
+    }
+
+.panel-izquierdo .titulo {
+    margin-top: 10px;
+    font-size: 2.0rem;
+    margin: 0;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* .panel-izquierdo .robot {
+    max-width: 180px;
+    width: 100%;
+    height: auto;
+    margin-top: 0;
+} */
+
+.panel-derecho {
+    flex: 1;
+    padding: 20px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario-registro {
+    width: 100%;
+    max-width: 400px;
+    /* margin: 0 auto; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 420px;      
+    overflow-y: auto;
+    /* padding-right: 8px;      */
+}
+
+.logo {
+    /* display: block; */
+    margin: 0 auto 20px auto;
+    width: 80px;
+    }
+
+.titulo2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.7rem;
+    color: #000000;
+}
+
+form label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+    form input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 15px;
+    
+    border: 1px solid #ccc;
+    background-color: #F5F5F5;
+    }
+
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form select {
+    width: 100%;
+    min-width: 0;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    background-color: #F5F5F5;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+}
+
+form select {
+    width: 100%;
+    margin: 0 auto;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    background-color: #F5F5F5;
+    margin-bottom: 8px;
+}
+
+.btn-contenedor {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    margin-top: 10px;
+    width: 100%;
+    padding: 0 10px;
+    margin-top: 50px;
+}
+.btn-contenedor .btn {
+    flex: 1;
+    text-align: center;
+    }
+
+    .btn-contenedor button a {
+    /* display: block; */
+    width: 100%;
+    height: 100%;
+    color: white;
+    text-decoration: none;
+    font-family: 'Inclusive Sans', sans-serif;
+    font-size: 15px;
+    }
+.btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-family: 'Inclusive Sans', sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.btn-registro {
+    background: #00A0DC;
+}
+
+.btn-cancelar {
+    background: #D32C2C;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+
+/* Responsive: solo panel derecho en móvil, texto más pequeño */
+/* Responsive: solo panel derecho en móvil, texto más pequeño */
+@media (max-width: 900px) {
+    .panel-izquierdo .titulo {
+        font-size: 1.3rem;
+    }
+}
+@media (max-width: 768px) {
+    .contenedor-registro {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 100vw;
+        min-height: 100vh;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        margin: 0;
+        padding: 0;
+    }
+    .panel-izquierdo {
+        display: none;
+    }
+    .panel-derecho {
+        width: 96vw;
+        max-width: 500px;
+        min-height: 60vh;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        margin: 32px auto;
+        padding: 32px 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .formulario-registro {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-height: 70vh;   /* Más alto en móvil */
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+    form label {
+        margin-top: 6px;
+        margin-bottom: 1px;
+        font-size: 13px;
+    }
+}
