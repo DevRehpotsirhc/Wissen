@@ -11,8 +11,8 @@
 <body>
   <div class="contenedor-registro">
     <div class="panel-izquierdo"> <!-- Panel izquierdo con imagen y título -->
-      <img src="{% static "images/robot-solo.png" %}" alt="Robot Wissen" class="robot" />
       <h3 class="titulo">Crea una cuenta</h3>
+      <img src="{% static "images/robot-solo.png" %}" alt="Robot Wissen" class="robot" />
     </div>
 
     <div class="panel-derecho">
@@ -34,7 +34,7 @@
           <input type="text" name="nombre" required>
 
           <label for="apellidos">Apellido(s)</label>
-          <input type="text" name="apellidos" placeholder="Apellidos" required><br>
+          <input type="text" name="apellidos" required><br>
 
           <label for="tipo_iden">Tipo de Identificación</label>
           <select name="tipo_iden" required>
@@ -48,10 +48,10 @@
           <input type="text" name="num_iden" placeholder="Número de ID" required><br>
 
           <label for="correo">Correo</label>
-          <input type="email" name="correo" placeholder="Correo" required><br>
+          <input type="email" name="correo" required><br>
 
           <label for="tel">Teléfono</label>
-          <input type="text" name="tel" placeholder="Teléfono" required><br>
+          <input type="text" name="tel" required><br>
 
           <label for="usuario">Usuario</label>
           <input type="text" name="usuario" placeholder="Usuario" required><br>
@@ -116,12 +116,16 @@
             <input type="submit" value="Registrar" class="btn btn-registro">
         </form>
         <button type="submit" class="btn btn-cancelar">
-              <a href="">Cancelar</a>
+          {% comment %} falta url en cancelar  {% endcomment %}
+              <a href="#">Cancelar</a>
             </button>
           </div>
       </div>
     </div>
   </div>
+  <footer class="footer-registro">
+    Copyright © 2025 Wissen. Todos los derechos reservados.
+  </footer>
   {% comment %} Validación de campos para verificar el rol y sus campos requeridos para el registro {% endcomment %}
   <script src="{% static 'js/campos_por_rol.js' %}"></script>
 </body>

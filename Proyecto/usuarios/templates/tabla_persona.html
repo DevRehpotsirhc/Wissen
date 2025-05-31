@@ -1,0 +1,39 @@
+{% comment %}Esta tabla será del administrador para ver las personas en el sistema, solo puede ser accedido por el administrador; muestra la información general de todas las personas en el sistema, con botones para ver específicamente a una persona (materias, cursos o cargo relacionados), editar, eliminar o crear usuarios{% endcomment %}
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Tipo de Identificación</th>
+      <th>Número de Identificación</th>
+      <th>Correo</th>
+      <th>Teléfono</th>
+      <th>Rol</th>
+      <th>Estado en el Sistema</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for usuario in usuarios %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ usuario.id_persona.nombre }}</td>
+        <td>{{ usuario.id_persona.apellidos }}</td>
+        <td>{{ usuario.id_persona.get_tipo_iden_display }}</td>
+        <td>{{ usuario.id_persona.num_iden }}</td>
+        <td>{{ usuario.id_persona.correo }}</td>
+        <td>{{ usuario.id_persona.tel }}</td>
+        <td>{{ usuario.get_rol_display }}</td>
+        <td>{{ usuario.get_estado_display }}</td>
+        {% comment %}Esta columna la pueden trabajar con una ventana modal si quieren para que sea más dinámico; si harán eso, mejor es que adapten el anchor (<a></a>){% endcomment %}
+        <td>
+          <a href="#"><button>Ver datos</button></a>
+          <a href="#"><button>Modificar</button></a>
+          {% comment %}Recuerden pedir confirmación de eliminar, pueden hacerlo con un modal o directamente con una ventana de confirmación del navegador{% endcomment %}
+          <a href="{% url 'eliminar_usuario' usuario.id_persona.id_persona %}"><button>Eliminar</button></a> 
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

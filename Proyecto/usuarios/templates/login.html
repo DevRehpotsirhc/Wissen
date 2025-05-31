@@ -1,3 +1,4 @@
+{% comment %} {% extends "base.html" %} {% endcomment %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -5,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% comment %} no puede heredar el tittle solo con las templates de base.html  {% endcomment %}
+    {% comment %} {% block title %}Login{% endblock  %} {% endcomment %}
     <title>Login</title>
     <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
     <link rel="stylesheet" href="{% static "css/base.css" %}">
@@ -31,12 +33,7 @@
                         <input type="password" name="clave" id="clave" required>
                         <i class="fa-solid fa-eye" id="icon_ojo"></i>
                     </div>
-                    <div class="btn-contenedor">
-                        <button type="submit" class="btn btn-registro">
-                            <a href="{% url 'registro_usuario' %}">Registrar</a>
-                        </button>
-                        <input type="submit" class="btn btn-ingreso" value="Ingresar" />
-                    </div>
+                    <input type="submit" class="btn btn-ingreso" value="Ingresar" />
                 </form>
                 
                 {% if messages %}
@@ -50,7 +47,7 @@
     </div>
     
     <footer class="footer-login">
-        © Wissen 2025. Todos los derechos reservados.
+        Copyright © 2025 Wissen. Todos los derechos reservados.
     </footer>
     <script src="https://kit.fontawesome.com/2c77c5521d.js" crossorigin="anonymous"></script>
     <script src="{% static "js/login.js" %}"></script> 
