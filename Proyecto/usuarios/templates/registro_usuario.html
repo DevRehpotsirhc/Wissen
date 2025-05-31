@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
 
-<script src="{% static 'js/campos_por_rol.js' %}"></script>
-<link rel="stylesheet" href="{% static 'css/registro_usuario.css' %}">
 
 {% block title %}
 Registrar Usuario
 {% endblock title %}
 
 {% block content %}
+<script src="{% static 'js/campos_por_rol.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/registro_usuario.css' %}">
 <body>
   <div class="contenedor-registro">
     <div class="panel-izquierdo"> <!-- Panel izquierdo con imagen y título -->
       <h3 class="titulo">Crea una cuenta</h3>
-      <img src="{% static "images/robot-solo.png" %}" alt="Robot Wissen" class="robot" />
+      <img src="{% static 'images/robot-solo.png' %}" alt="Robot Wissen" class="robot" />
     </div>
 
     <div class="panel-derecho">
@@ -25,7 +25,7 @@ Registrar Usuario
           {% endfor %}
         {% endif %}
 
-        <img src="{% static "images/logo.svg" %}" alt="Logo Wissen" class="logo" />
+        <img src="{% static 'images/logo.svg' %}" alt="Logo Wissen" class="logo" />
         <h2 class="titulo2">Registrar Usuario</h2>
 
         {% comment %} Formulario de registro {% endcomment %}
