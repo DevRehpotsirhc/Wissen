@@ -9,7 +9,7 @@
     {% comment %} {% block title %}Login{% endblock  %} {% endcomment %}
     <title>Login</title>
     <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
-    <link rel="stylesheet" href="{% static "css/base.css" %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
 <body>
     <div class="contenedor-login">
@@ -35,13 +35,6 @@
                     </div>
                     <input type="submit" class="btn btn-ingreso" value="Ingresar" />
                 </form>
-                
-                {% if messages %}
-                    {% for message in messages %}
-                        <p style="color:red;">{{ message }}</p>
-                    {% endfor %}
-                {% endif %}                
-                {% comment %} <a href="#" class="olvido_contraseña">¿Olvidaste tu contraseña?</a> {% endcomment %}
             </div>
         </div>
     </div>
