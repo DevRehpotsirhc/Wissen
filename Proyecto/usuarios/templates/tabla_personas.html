@@ -7,10 +7,7 @@
       <th>Apellidos</th>
       <th>Tipo de Identificación</th>
       <th>Número de Identificación</th>
-      <th>Correo</th>
-      <th>Teléfono</th>
       <th>Rol</th>
-      <th>Estado en el Sistema</th>
       <th>Acciones</th>
     </tr>
   </thead>
@@ -22,13 +19,10 @@
         <td>{{ usuario.id_persona.apellidos }}</td>
         <td>{{ usuario.id_persona.get_tipo_iden_display }}</td>
         <td>{{ usuario.id_persona.num_iden }}</td>
-        <td>{{ usuario.id_persona.correo }}</td>
-        <td>{{ usuario.id_persona.tel }}</td>
         <td>{{ usuario.get_rol_display }}</td>
-        <td>{{ usuario.get_estado_display }}</td>
         {% comment %}Esta columna la pueden trabajar con una ventana modal si quieren para que sea más dinámico; si harán eso, mejor es que adapten el anchor (<a></a>){% endcomment %}
         <td>
-          <a href="#"><button>Ver datos</button></a>
+          <a href="{% url 'detalle_usuario' usuario.id_usuario %}"><button>Ver datos</button></a>
           <a href="#"><button>Modificar</button></a>
           {% comment %}Recuerden pedir confirmación de eliminar, pueden hacerlo con un modal o directamente con una ventana de confirmación del navegador{% endcomment %}
           <a href="{% url 'eliminar_usuario' usuario.id_persona.id_persona %}"><button>Eliminar</button></a> 

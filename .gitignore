@@ -5,20 +5,20 @@
 
 
 # Caché del módulo principal
-observador_digital/__pycache__
-observador_digital/migrations/__pycache__
+Proyecto/observador_digital/__pycache__
+Proyecto/observador_digital/migrations/__pycache__
 
 # Caché del módulo de usuarios
-usuarios/__pycache__
-usuarios/migrations/__pycache__
+Proyecto/usuarios/__pycache__
+Proyecto/usuarios/migrations/__pycache__
 
 # Caché del módulo de faltas
-faltas/__pycache__
-faltas/migrations/__pycache__
+Proyecto/faltas/__pycache__
+Proyecto/faltas/migrations/__pycache__
 
 # Caché del módulo de generador de informes
-gen_infos/__pycache__
-gen_infos/migrations/__pycache__
+Proyecto/gen_infos/__pycache__
+Proyecto/gen_infos/migrations/__pycache__
 
 
 

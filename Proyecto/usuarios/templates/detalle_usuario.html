@@ -1,5 +1,59 @@
-<h2>Detalle de usuario</h2>
-<p>Nombre: {{ usuario.id_persona.nombre }} {{ usuario.id_persona.apellidos }}</p>
-<p>Correo: {{ usuario.id_persona.correo }}</p>
-<p>Rol: {{ usuario.get_rol_display }}</p>
+<h2>Datos del usuario</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Tipo de Identificación</th>
+      <th>Número de Identificación</th>
+      <th>Correo</th>
+      <th>Teléfono</th>
+      <th>Usuario</th>
+      <th>Rol</th>
+      {% if cargo %}
+        <th>Cargo</th>
+      {% endif %}
+      {% if materias or cursos %}
+        <th>Materias</th>
+        <th>Cursos</th>
+      {% endif %}
+      {% if curso %}
+        <th>Curso</th>
+      {% endif %}
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ usuario.id_usuario }}</td>
+      <td>{{ usuario.id_persona.nombre }}</td>
+      <td>{{ usuario.id_persona.apellidos }}</td>
+      <td>{{ usuario.id_persona.get_tipo_iden_display }}</td>
+      <td>{{ usuario.id_persona.num_iden }}</td>
+      <td>{{ usuario.id_persona.correo }}</td>
+      <td>{{ usuario.id_persona.tel }}</td>
+      <td>{{ usuario.usuario }}</td>
+      <td>{{ usuario.get_rol_display }}</td>
+      {% if cargo %}
+        <td>{{ cargo }}</td>
+      {% endif %}
+      {% if materias or cursos %}
+        <td>{{ materias|join:", " }}</td>
+        <td>{{ cursos|join:", " }}</td>
+      {% endif %}
+      {% if curso %}
+        <td>{{ curso }}</td>
+      {% endif %}
+      <td>{{ usuario.get_estado_display }}</td>
+      <td>
+        <a href="#"><button>Modificar</button></a>
+        <a href="{% url 'eliminar_usuario' usuario.id_persona.id_persona %}"><button>Eliminar</button></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 <a href="{% url 'lista_usuarios' %}">Volver</a>

@@ -95,14 +95,17 @@ def registro_usuario(request):
                     cargo = request.POST.get('cargo')
                     Administrador.objects.create(id_usuario=usuario, cargo=cargo)
 
-                elif rol == 'docen':
+                if rol == 'docen':
                     materias_ids = request.POST.getlist('materias')
                     cursos_ids = request.POST.getlist('cursos')
                     docente = Docente.objects.create(id_usuario=usuario)
-                    docente.id_materia.set(materias_ids)
-                    docente.id_curso.set(cursos_ids)
+                    if docente:
+                        docente.id_materia.set(materias_ids)
+                        docente.id_curso.set(cursos_ids)
+                    else:
+                        raise ValueError("Debe seleccionar al menos una materia y un curso para el docente.")
 
-                elif rol == 'estud':
+                if rol == 'estud':
                     id_curso = request.POST.get('id_curso')
                     if id_curso:
                         curso = Curso.objects.get(id_curso=id_curso)
@@ -111,7 +114,7 @@ def registro_usuario(request):
                         raise ValueError("Curso requerido para estudiante.")
 
                 messages.success(request, 'Usuario creado correctamente.')
-                return redirect('login')
+                return redirect('lista_usuarios')
 
         except Exception as e:
             messages.error(request, f'Error en el registro: {str(e)}')
@@ -132,27 +135,43 @@ def registro_usuario(request):
 
 # Lectura de Usuarios
 # Listado de usuarios
-@login_required
+@user_passes_test(user_admin, login_url='login')
 def lista_usuarios(request):
     usuarios = Usuario.objects.select_related('id_persona').all()
     return render(request, 'lista_usuarios.html', {'usuarios': usuarios})
 
-@login_required
-def tabla_persona(request):
-    personas = Persona.objects.all()
-    usuarios = Usuario.objects.select_related('id_persona').all()
-    return render(request, 'tabla_persona.html', {'usuarios': usuarios, 'personas': personas})
-
 
 # Detalles de usuario
-@login_required
+@user_passes_test(user_admin, login_url='login')
 def detalle_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
-    return render(request, 'detalle_usuario.html', {'usuario': usuario})
+    cargo = None
+    materias = []
+    cursos = []
+    curso = None
+
+    if usuario.rol == 'admin':
+        admin = Administrador.objects.filter(id_usuario=usuario).first()
+        cargo = admin.get_cargo_display() if admin else None # type: ignore
+    elif usuario.rol == 'docen':
+        docente = Docente.objects.filter(id_usuario=usuario).first()
+        if docente:
+            materias = [m.materia for m in docente.id_materia.all()]
+            cursos = [c.curso for c in docente.id_curso.all()]
+    elif usuario.rol == 'estud':
+        estudiante = Estudiante.objects.filter(id_usuario=usuario).first()
+        curso = estudiante.id_curso.curso if estudiante else None
+
+    return render(request, 'detalle_usuario.html', {
+        'usuario': usuario, 
+        'cargo': cargo, 
+        'materias': materias, 
+        'cursos': cursos, 
+        'curso': curso})
 
 
 # Editar usuario
-@login_required
+@user_passes_test(user_admin, login_url='login')
 def editar_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
     if request.method == 'POST':
@@ -167,7 +186,7 @@ def editar_usuario(request, pk):
 
 
 # Eliminar usuario
-@login_required
+@user_passes_test(user_admin, login_url='login')
 def eliminar_usuario(request, pk):
     usuario = get_object_or_404(Persona, pk=pk)
     if request.method == 'POST':

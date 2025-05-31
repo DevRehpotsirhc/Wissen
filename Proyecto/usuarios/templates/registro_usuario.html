@@ -1,14 +1,15 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Registro de Usuario</title>
-  <script src="{% static 'js/campos_por_rol.js' %}"></script>
-  <link rel="stylesheet" href="{% static 'css/registro_usuario.css' %}">
-</head>
+
+<script src="{% static 'js/campos_por_rol.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/registro_usuario.css' %}">
+
+{% block title %}
+Registrar Usuario
+{% endblock title %}
+
+{% block content %}
 <body>
-
-
   <h1>Registrar Usuario</h1>
 
   {% comment %} Manejo de alertas {% endcomment %}
@@ -80,7 +81,7 @@
     {% comment %} Solo se muestra si es rol Docente {% endcomment %}
     <div id="grupo-materias">
       <label for="materias">Materias</label><br>
-      <select name="materias" multiple>
+      <select name="materias" multiple size="4">
         {% for materia in materias %}
           <option value="{{ materia.id_materia }}">{{ materia.materia }}</option>
         {% endfor %}
@@ -89,7 +90,7 @@
 
     <div id="grupo-cursos">
       <label for="cursos">Cursos</label><br>
-      <select name="cursos" multiple>
+      <select name="cursos" multiple size="4">
         {% for curso in cursos %}
           <option value="{{ curso.id_curso }}">{{ curso.curso }}</option>
         {% endfor %}
@@ -115,4 +116,4 @@
   <script src="{% static 'js/campos_por_rol.js' %}"></script>
   
 </body>
-</html>
+{% endblock content %}
