@@ -69,7 +69,7 @@
         const caracteresValidos = /[^a-zA-Z0-9ñÑ]/g;
 
         // Limpiar caracteres inválidos
-        if (caracteresInvalidos.test(value)) {
+        if (caracteresValidos.test(value)) {
             e.target.value = value.replace(caracteresValidos, '');
             showMessage('Solo se permiten letras y números en la contraseña', 'error');
         }
